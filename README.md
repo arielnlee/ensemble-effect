@@ -1,5 +1,7 @@
 # Ensemble-Based Approach for Predicting Textual Prompts for Stable Diffusion Generated Images
 
+![Example](./readme_assets/examples.png)
+
 This repository contains an implementation of a novel ensemble-based approach for predicting textual prompts used to generate Stable Diffusion images. The approach surpasses the performance of traditional image captioning models and employs fine-tuned OpenAI CLIP and ViT Large models, along with the CLIP Interrogator (BLIP+CLIP), using a custom dataset consisting of 105k image-prompt pairs. 
 
 ## Requirements
@@ -17,6 +19,9 @@ Creating a high-quality dataset is crucial for the success of the model in predi
 - Data Augmentation: Various augmentation techniques are applied to the images in the dataset to improve the model's ability to generalize and prevent overfitting.
 
 ## Model Architecture
+
+![Pipeline](./readme_assets/pipeline.png)
+
 The model is built on a ViT large CLIP model and fine-tuned using the provided curated dataset of (prompt, image) pairs to adapt the model to the task of predicting text prompts for stable diffusion generated images. The fine-tuning process involves the following steps:
 - Loss Function: CosineEmbeddingLoss is used as the loss function during fine-tuning.
 - Cosine Learning Rate Scheduling: A cosine learning rate scheduling technique is employed to adapt the learning rate.
