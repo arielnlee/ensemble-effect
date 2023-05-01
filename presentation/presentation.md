@@ -24,38 +24,6 @@ paginate: true
 
 ---
 
-## Related Work
-
-- Image Captioning
-  - Encoder-decoder architectures with CNNs and RNNs
-  - Show and Tell model
-  - Transformers for improved performance
-
-
-- Text-to-Image Synthesis
-  - Variational Autoencoders (VAEs)
-  - Generative Adversarial Networks (GANs)
-  - StackGAN and AttnGAN
----
-## Related Work
-
-- Multi-modal Learning
-  - Visual Question Answering (VQA)
-  - ViLBERT and VisualBERT
-  - CLIP and BLIP
-  
-- Ensembling
-  - Bagging, boosting, and random forests
-  - Model averaging and stacking
-
----
-
-## Methods
-
-![Pipeline width:900px](./pipeline.png)
-
----
-
 ## Methods
 
 - Ensemble of three models: fine-tuned `CLIP`, fine-tuned `ViT-Large`, and `CLIP Interrogator (CI)`
@@ -67,6 +35,11 @@ paginate: true
   
 - Fine-tuning on Stable Diffusion image prompt pairs
   - Loss function, cosine learning rate scheduling, unfreezing layers, early stopping, automatic mixed precision (Amp) and autocast, gradient scaling, data splitting, and data augmentation
+
+---
+## Methods
+
+![Pipeline width:900px](./pipeline.png)
 
 ---
 
@@ -110,14 +83,6 @@ paginate: true
 
 ---
 
-## Evaluation
-
-- Cosine similarity score: 0.55865
-- Top 11% in the Kaggle competition (107 out of 981 teams)
-  - Ensemble model combines fine-tuned OpenAI `CLIP`, fine-tuned ViT-L, and `CLIP Interrogator (BLIP+CLIP)` models
-
----
-
 ## Results
 
 | Architecture                | Score |
@@ -129,6 +94,8 @@ paginate: true
 | `CLIP Interrogator (BLIP+CLIP)` | 49.30 |
 | Ensemble                    | 55.90 |
 
+- Top 13% in the Kaggle competition (143 out of 1133 teams), cos sim score: 0.55865
+
 ---
 
 ## Discussion
@@ -136,7 +103,7 @@ paginate: true
 - Custom dataset played a crucial role in the model's success
   - Diverse set of text prompts
   - Filtering out similar prompts
-  - High-quality images
+  - High-quality images, matching test set properties
 - Fine-tuning process, attention mechanisms, hyperparameter optimization, and regularization techniques contributed to improved prediction accuracy
 - Potential advancements in generative models, prompt engineering, and multi-modal learning domains
 
