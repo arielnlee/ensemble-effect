@@ -3,3 +3,6 @@ command
 .venv**
 **.csv
 **.txt
+**.png
+**.zip
+**.log
