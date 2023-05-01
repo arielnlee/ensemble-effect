@@ -28,32 +28,37 @@ dissimilar_prompts = []
 for i in tqdm(range(num_chunks), unit=" chunks"):
     start_idx = i * chunk_size
     end_idx = min((i + 1) * chunk_size, len(prompts))
-    chunk_embeddings = model.encode(prompts[start_idx:end_idx], convert_to_numpy=True, device='cuda')
+    chunk_embeddings = model.encode(prompts[start_idx:end_idx], convert_to_numpy=True, device='cuda', show_progress_bar=False)
     chunk_cosine_scores = util.pytorch_cos_sim(chunk_embeddings, chunk_embeddings)
 
     for j in range(chunk_cosine_scores.shape[0]):
         row_without_diagonal = np.concatenate((chunk_cosine_scores[j, :j], chunk_cosine_scores[j, j+1:]))
         dissimilar_prompts.append((row_without_diagonal < 0.9).all())
 
-# Save dissimilar prompts to a new list
-filtered_prompts = [prompt for prompt, dissimilar in zip(prompts, dissimilar_prompts) if dissimilar]
+# Filter prompts
+seen = set()
+filtered_prompts = [
+    (idx, prompt)
+    for idx, (prompt, dissimilar) in enumerate(zip(prompts, dissimilar_prompts))
+    if (
+        # Keep only dissimilar prompts
+        dissimilar
+        # Remove prompts that are not strings
+        and isinstance(prompt, str)
+        # Remove prompts that end or start with a comma
+        and not prompt.startswith(",")
+        and not prompt.endswith(",")
+        # Remove prompts that appear to be URLs
+        and not prompt.startswith("http")
+        # Remove lines that have fewer than 4 words
+        and len(prompt.split()) >= 4
+        # Remove identical prompts
+        and prompt not in seen
+        # Remove empty prompts
+        and prompt != ""
+    )
+    and not seen.add(prompt)
+]
 
-# remove prompts that are not strings
-filtered_prompts = [prompt for prompt in filtered_prompts if isinstance(prompt, str)]
-
-# remove prompts that end or start with a comma
-filtered_prompts = [prompt for prompt in filtered_prompts if not prompt.startswith(",")]
-filtered_prompts = [prompt for prompt in filtered_prompts if not prompt.endswith(",")]
-
-# remove lines that have fewer than 4 words
-filtered_prompts = [prompt for prompt in filtered_prompts if len(prompt.split()) >= 4]
-
-# remove identical prompts
-filtered_prompts = list(set(filtered_prompts))
-
-# remove blank lines
-filtered_prompts = [prompt for prompt in filtered_prompts if prompt.strip()]
-
-# Save filtered prompts to .txt file with one prompt per line
-with open(output_txt, "w") as f:
-    f.write("\n".join(filtered_prompts))
+# Save filtered prompts to a new csv, with all the original columns
+df.iloc[[idx for idx, prompt in filtered_prompts], :].to_csv(args.output_csv, index=False)
