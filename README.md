@@ -1,6 +1,6 @@
 # Ensemble-Based Approach for Predicting Textual Prompts for Stable Diffusion Generated Images
 
-![Example](./readme_assets/examples.png)
+![Example](./assets/examples.png)
 
 This repository contains an implementation of a novel ensemble-based approach for predicting textual prompts used to generate Stable Diffusion images. The approach surpasses the performance of traditional image captioning models and employs fine-tuned OpenAI CLIP and ViT Large models, along with the CLIP Interrogator (BLIP+CLIP), using a custom dataset consisting of 105k image-prompt pairs. 
 
