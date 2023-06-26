@@ -31,7 +31,7 @@ The model is built on a ViT large CLIP model and fine-tuned using the provided c
 - Gradient Scaling: Gradient Scaling is employed to address the issue of small gradients during mixed-precision training.
 
 ## Results
-The model was evaluated on the Kaggle competition test set and achieved a cosine similarity score of 0.55865, placing it in the top 11% of the competition, with a ranking of 107 out of 981 participating teams. The ensemble model combines fine-tuned OpenAI CLIP, ViT Large models, and the CLIP Interrogator (BLIP+CLIP) to achieve superior performance over state-of-the-art models like BLIP. The custom dataset consisting of 105 image-prompt pairs played a vital role in enabling the model to learn the latent associations between prompts and images. 
+At the time of writing, the model was evaluated on the Kaggle competition test set and achieved a cosine similarity score of 0.55865, placing it in the top 11% of the competition, with a ranking of 107 out of 981 participating teams. The ensemble model combines fine-tuned OpenAI CLIP, ViT Large models, and the CLIP Interrogator (BLIP+CLIP) to achieve superior performance over state-of-the-art models like BLIP. The custom dataset consisting of 105 image-prompt pairs played a vital role in enabling the model to learn the latent associations between prompts and images. 
 
 ## Conclusion
 This research contributes to an enhanced understanding of the relationship between prompts and images and offers potential advancements in generative models, prompt engineering, and multi-modal learning domains. Furthermore, the model's high ranking in the competition highlights its potential to outperform traditional image captioning models and avoid costly pre-training while leveraging pre-trained models.
