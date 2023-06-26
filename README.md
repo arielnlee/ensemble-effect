@@ -20,7 +20,7 @@ Creating a high-quality dataset is crucial for the success of the model in predi
 
 ## Model Architecture
 
-![Pipeline](./readme_assets/pipeline.png)
+![Pipeline](./assets/pipeline.png)
 
 The model is built on a ViT large CLIP model and fine-tuned using the provided curated dataset of (prompt, image) pairs to adapt the model to the task of predicting text prompts for stable diffusion generated images. The fine-tuning process involves the following steps:
 - Loss Function: CosineEmbeddingLoss is used as the loss function during fine-tuning.
